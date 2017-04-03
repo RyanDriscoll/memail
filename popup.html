@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+  <head>
+    <title>MeMail</title>
+    <style>
+      body {
+        font-family: 'Helvetica Neue', sans-serif;
+        font-size: 16px;
+      }
+    </style>
+    <script src="popup.js"></script>
+  </head>
+
+  <body>
+    <form action="mailto:someone@example.com" target="_blank" method="post" enctype="text/plain">
+      <input id="email" name="email" type="email"></input>
+      <input id="subject" name="subject" type="text"></input>
+      <textarea id="body" name="body"></textarea>
+      <input type="submit" value="Send">
+    </form>
+    <a id="submit" target="_blank">send mail</a>
+    <h2>Send e-mail to someone@example.com:</h2>
+
+<form action="mailto:someone@example.com" target="_blank" method="post" enctype="text/plain">
+Name:<br>
+<input type="text" name="name"><br>
+E-mail:<br>
+<input type="text" name="mail"><br>
+Comment:<br>
+<input type="text" name="comment" size="50"><br><br>
+<input type="submit" value="Send">
+<input type="reset" value="Reset">
+</form>
+  </body>
+</html>
+
