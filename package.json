@@ -1,0 +1,34 @@
+{
+  "name": "memail",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack -p && webpack -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RyanDriscoll/memail.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RyanDriscoll/memail/issues"
+  },
+  "homepage": "https://github.com/RyanDriscoll/memail#readme",
+  "dependencies": {
+    "axios": "^0.16.0",
+    "babel": "^6.23.0",
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-stage-2": "^6.22.0",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "nodemailer": "^3.1.8",
+    "nodemon": "^1.11.0",
+    "webpack": "^2.3.3"
+  }
+}

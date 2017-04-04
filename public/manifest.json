@@ -9,11 +9,15 @@
     "default_popup": "popup.html"
   },
   "background": {
-        "scripts": ["background.js"]
+    "scripts": [
+      "background.bundle.js"
+    ],
+    "persistent": true
   },
   "permissions": [
     "activeTab",
     "identity",
-    "identity.email"
+    "identity.email",
+    "http://localhost:8080/send"
   ]
 }

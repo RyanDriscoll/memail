@@ -8,17 +8,17 @@
         font-size: 16px;
       }
     </style>
-    <script src="popup.js"></script>
+    <!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+    <script src="popup.bundle.js"></script>
   </head>
 
   <body>
-    <form action="mailto:someone@example.com" target="_blank" method="post" enctype="text/plain">
+    <form>
       <input id="email" name="email" type="email"></input>
       <input id="subject" name="subject" type="text"></input>
       <textarea id="body" name="body"></textarea>
-      <input type="submit" value="Send">
+      <input id="submit" type="submit" value="Send">
     </form>
-    <a id="submit" target="_blank">send mail</a>
     <h2>Send e-mail to someone@example.com:</h2>
 
 <form action="mailto:someone@example.com" target="_blank" method="post" enctype="text/plain">
