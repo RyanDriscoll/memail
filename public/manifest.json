@@ -8,12 +8,6 @@
     "default_icon": "mail_icon.png",
     "default_popup": "popup.html"
   },
-  "background": {
-    "scripts": [
-      "background.bundle.js"
-    ],
-    "persistent": true
-  },
   "permissions": [
     "activeTab",
     "identity",
