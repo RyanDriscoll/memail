@@ -5,17 +5,12 @@ const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const secret = require('./secret');
 
-
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
 app.use(bodyParser.json());
 app.use('/send', router);
 
 router.use('/', sendEmail);
 
 function sendEmail(req, res, next) {
-  console.log('in sendEmail', req.body);
   const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
@@ -44,10 +39,7 @@ function sendEmail(req, res, next) {
       });
     }
   });
-
 }
-
-// sendEmail();
 
 app.use(function (err, req, res, next) {
   console.error(err, err.stack);
