@@ -9520,6 +9520,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(50);
@@ -9554,11 +9556,17 @@ var Popup = function (_React$Component) {
       email: '',
       url: '',
       title: '',
-      success: '',
-      error: '',
-      count: 5
+      success: {},
+      error: {},
+      showCountdown: true,
+      count: 3
     };
     _this.countdown = _this.countdown.bind(_this);
+    _this.sendEmail = _this.sendEmail.bind(_this);
+    _this.renderSending = _this.renderSending.bind(_this);
+    _this.handleClick = _this.handleClick.bind(_this);
+    _this.handleFocus = _this.handleFocus.bind(_this);
+    _this.handleChange = _this.handleChange.bind(_this);
     return _this;
   }
 
@@ -9575,12 +9583,34 @@ var Popup = function (_React$Component) {
       clearInterval(this.interval);
     }
   }, {
+    key: 'handleClick',
+    value: function handleClick() {
+      console.log('state', this.state, _typeof(this.state.error));
+    }
+  }, {
+    key: 'handleFocus',
+    value: function handleFocus() {
+      console.log('focus happening');
+      clearInterval(this.interval);
+      this.setState({
+        showCountdown: false
+      });
+    }
+  }, {
+    key: 'handleChange',
+    value: function handleChange(evt) {
+      this.setState({
+        email: evt.target.value
+      });
+    }
+  }, {
     key: 'countdown',
     value: function countdown() {
-      console.log(this.state);
       this.setState({ count: this.state.count - 1 });
       if (this.state.count <= 0) {
         clearInterval(this.interval);
+        this.sendEmail();
+        // window.close();
       }
     }
   }, {
@@ -9618,19 +9648,56 @@ var Popup = function (_React$Component) {
           url = _state.url,
           title = _state.title;
 
-      _axios2.default.post(_rootPath2.default + 'send', { email: email, url: url, title: title }).then(function (success) {
-        return _this4.setState({ success: success });
+      _axios2.default.post(_rootPath2.default + 'snd', { email: email, url: url, title: title }).then(function (success) {
+        return _this4.setState({ success: success, sent: true });
       }).catch(function (error) {
         return _this4.setState({ error: error });
       });
     }
   }, {
-    key: 'render',
-    value: function render() {
+    key: 'renderSending',
+    value: function renderSending() {
       return _react2.default.createElement(
         'div',
         null,
-        this.state.count
+        _react2.default.createElement(
+          'h2',
+          null,
+          'Sending MeMail to:'
+        ),
+        _react2.default.createElement(
+          'form',
+          null,
+          _react2.default.createElement('input', { tabIndex: '-1', value: this.state.email, onChange: this.handleChange, onFocus: this.handleFocus })
+        )
+      );
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var success = Object.keys(this.state.success).length;
+      var error = Object.keys(this.state.error).length;
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'h1',
+          null,
+          'MeMail'
+        ),
+        this.state.count > 0 && this.state.showCountdown ? this.state.count : null,
+        !success && !error ? this.renderSending() : null,
+        success ? _react2.default.createElement(
+          'h1',
+          null,
+          'Success!'
+        ) : null,
+        error ? _react2.default.createElement(
+          'h1',
+          null,
+          'Email failed to send'
+        ) : null,
+        _react2.default.createElement('button', { onClick: this.handleClick })
       );
     }
   }]);

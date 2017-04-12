@@ -1,0 +1,11 @@
+html, body {
+  height: 400px;
+  width: 400px;
+  font-size: 16px;
+}
+
+input {
+  outline: none;
+  border: none;
+  font-size: 1em;
+}
