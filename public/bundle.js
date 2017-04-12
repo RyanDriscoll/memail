@@ -9520,8 +9520,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(50);
@@ -9559,6 +9557,7 @@ var Popup = function (_React$Component) {
       success: {},
       error: {},
       showCountdown: true,
+      focused: false,
       count: 3
     };
     _this.countdown = _this.countdown.bind(_this);
@@ -9585,7 +9584,8 @@ var Popup = function (_React$Component) {
   }, {
     key: 'handleClick',
     value: function handleClick() {
-      console.log('state', this.state, _typeof(this.state.error));
+      this.sendEmail();
+      setTimeout(window.close, 2000);
     }
   }, {
     key: 'handleFocus',
@@ -9593,7 +9593,8 @@ var Popup = function (_React$Component) {
       console.log('focus happening');
       clearInterval(this.interval);
       this.setState({
-        showCountdown: false
+        showCountdown: false,
+        focused: true
       });
     }
   }, {
@@ -9610,7 +9611,7 @@ var Popup = function (_React$Component) {
       if (this.state.count <= 0) {
         clearInterval(this.interval);
         this.sendEmail();
-        // window.close();
+        setTimeout(window.close, 2000);
       }
     }
   }, {
@@ -9648,8 +9649,8 @@ var Popup = function (_React$Component) {
           url = _state.url,
           title = _state.title;
 
-      _axios2.default.post(_rootPath2.default + 'snd', { email: email, url: url, title: title }).then(function (success) {
-        return _this4.setState({ success: success, sent: true });
+      _axios2.default.post(_rootPath2.default + 'send', { email: email, url: url, title: title }).then(function (success) {
+        return _this4.setState({ success: success });
       }).catch(function (error) {
         return _this4.setState({ error: error });
       });
@@ -9669,7 +9670,12 @@ var Popup = function (_React$Component) {
           'form',
           null,
           _react2.default.createElement('input', { tabIndex: '-1', value: this.state.email, onChange: this.handleChange, onFocus: this.handleFocus })
-        )
+        ),
+        !this.state.focused ? _react2.default.createElement(
+          'div',
+          { id: 'help-text' },
+          '(click email to change)'
+        ) : null
       );
     }
   }, {
@@ -9685,7 +9691,6 @@ var Popup = function (_React$Component) {
           null,
           'MeMail'
         ),
-        this.state.count > 0 && this.state.showCountdown ? this.state.count : null,
         !success && !error ? this.renderSending() : null,
         success ? _react2.default.createElement(
           'h1',
@@ -9697,7 +9702,17 @@ var Popup = function (_React$Component) {
           null,
           'Email failed to send'
         ) : null,
-        _react2.default.createElement('button', { onClick: this.handleClick })
+        this.state.focused ? _react2.default.createElement(
+          'button',
+          { onClick: this.handleClick },
+          'SEND'
+        ) : null,
+        this.state.count > 0 && this.state.showCountdown ? _react2.default.createElement(
+          'div',
+          { id: 'count' },
+          'in ',
+          this.state.count
+        ) : null
       );
     }
   }]);

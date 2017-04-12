@@ -12,6 +12,7 @@ class Popup extends React.Component {
       success: {},
       error: {},
       showCountdown: true,
+      focused: false,
       count: 3
     };
     this.countdown = this.countdown.bind(this);
@@ -33,20 +34,25 @@ class Popup extends React.Component {
   }
 
   handleClick() {
-    console.log('state', this.state, typeof this.state.error);
+    this.sendEmail();
+    setTimeout(
+      window.close,
+      2000
+    );
   }
 
   handleFocus() {
     console.log('focus happening');
     clearInterval(this.interval);
     this.setState({
-      showCountdown: false
+      showCountdown: false,
+      focused: true
     });
   }
 
   handleChange(evt) {
     this.setState({
-      email: evt.target.value
+      email: evt.target.value,
     });
   }
 
@@ -55,7 +61,10 @@ class Popup extends React.Component {
     if (this.state.count <= 0) {
       clearInterval(this.interval);
       this.sendEmail();
-      // window.close();
+      setTimeout(
+        window.close,
+        2000
+      );
     }
   }
 
@@ -80,8 +89,8 @@ class Popup extends React.Component {
 
   sendEmail() {
     const {email, url, title} = this.state;
-    axios.post(rootPath + 'snd', {email, url, title})
-      .then(success => this.setState({success, sent: true}))
+    axios.post(rootPath + 'send', {email, url, title})
+      .then(success => this.setState({success}))
       .catch(error => this.setState({error}));
   }
 
@@ -92,6 +101,9 @@ class Popup extends React.Component {
         <form>
           <input tabIndex="-1" value={this.state.email} onChange={this.handleChange} onFocus={this.handleFocus} />
         </form>
+        {
+          !this.state.focused ? <div id="help-text">(click email to change)</div> : null
+        }
       </div>
     );
   }
@@ -103,9 +115,6 @@ class Popup extends React.Component {
       <div>
         <h1>MeMail</h1>
         {
-          this.state.count > 0 && this.state.showCountdown ? this.state.count : null
-        }
-        {
           !success && !error ? this.renderSending() : null
         }
         {
@@ -114,7 +123,12 @@ class Popup extends React.Component {
         {
           error ? <h1>Email failed to send</h1> : null
         }
-        <button onClick={this.handleClick} />
+        {
+          this.state.focused ? <button onClick={this.handleClick}>SEND</button> : null
+        }
+        {
+          this.state.count > 0 && this.state.showCountdown ? <div id="count">in {this.state.count}</div> : null
+        }
       </div>
     );
   }
