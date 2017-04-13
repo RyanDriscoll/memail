@@ -43,13 +43,24 @@ const EmailController = class EmailController {
     xhr.send(JSON.stringify(this.data));
   }
 
+  render() {
+    const
+      title = document.getElementById('title'),
+      titleText = document.createTextNode(this.data.title),
+      email = document.getElementById('email'),
+      emailText = document.createTextNode(this.data.email);
+    title.appendChild(titleText);
+    email.appendChild(emailText);
+  }
+
   renderStatus(responseObj) {
     const
       msgContainer = document.getElementById('msg-container'),
       success = 'MeMail sent!',
       error = 'uh oh, something went wrong...',
       statusMessage = responseObj.status === 'success' ? success : error;
-    msgContainer.innerHTML = `<h1 class="msg">${statusMessage}</h1>`;
+    msgContainer.innerHTML = `<div class="msg">${statusMessage}</div>`;
+    setTimeout(window.close, 2000);
   }
 };
 
@@ -57,5 +68,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const MeMail = new EmailController();
 
   MeMail.getData()
-  .then(() => MeMail.sendEmail(MeMail.renderStatus));
+  .then(() => {
+    MeMail.render();
+    MeMail.sendEmail(MeMail.renderStatus);
+  });
 });
