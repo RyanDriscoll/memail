@@ -32,5 +32,5 @@ function getDataAndSendEmail() {
 
 document.addEventListener('DOMContentLoaded', function () {
   getDataAndSendEmail();
-  window.close();
+
 });
