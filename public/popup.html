@@ -3,27 +3,24 @@
   <head>
     <title>MeMail</title>
     <script src="popup.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Open+Sans+Condensed:300" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
   </head>
 
   <body>
-    <form>
-      <input id="email" name="email" type="email"></input>
-      <input id="subject" name="subject" type="text"></input>
-      <textarea id="body" name="body"></textarea>
-      <input id="submit" type="submit" value="Send">
-    </form>
-    <h2>Send e-mail to someone@example.com:</h2>
+    <div id="container">
+      <header>
+        <div id="logo" class="shadow">ME</div>
+      </header>
+      <div id="msg-container">
+        <div class="msg">Sending</div>
+        <div id="title"></div>
+        <div class="msg">to <span id="email"></span></div>
+        <!--<div id="email"></div>-->
+        <div id="status"></div>
+      </div>
+    </div>
 
-<form action="mailto:someone@example.com" target="_blank" method="post" enctype="text/plain">
-Name:<br>
-<input type="text" name="name"><br>
-E-mail:<br>
-<input type="text" name="mail"><br>
-Comment:<br>
-<input type="text" name="comment" size="50"><br><br>
-<input type="submit" value="Send">
-<input type="reset" value="Reset">
-</form>
   </body>
 </html>
 
