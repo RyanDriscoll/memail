@@ -3,7 +3,6 @@ const app = express();
 const router = express.Router();
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
-const secret = require('./secret');
 const PORT = process.env.PORT || 8080;
 
 app.use(bodyParser.json());
