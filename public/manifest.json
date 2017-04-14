@@ -4,6 +4,11 @@
   "name": "MEmail",
   "version": "1.0",
   "description": "Send email to yourself",
+  "icons": {
+    "16": "logo.png",
+    "48": "logo.png",
+    "128": "logo.png"
+    },
   "browser_action": {
     "default_icon": "logo.png",
     "default_popup": "popup.html"
