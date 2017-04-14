@@ -21,7 +21,7 @@ function sendEmail(req, res, next) {
   });
 
   var mailOptions = {
-    from: `MeMail <${process.env.EMAIL}>`,
+    from: `MEmail <${process.env.EMAIL}>`,
     to: req.body.email,
     subject: req.body.title,
     text: req.body.url
