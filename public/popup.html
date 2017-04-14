@@ -3,18 +3,20 @@
   <head>
     <title>MeMail</title>
     <script src="popup.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Open+Sans+Condensed:300" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
   </head>
 
   <body>
     <div id="container">
       <header>
-        <div id="logo">MeMail</div>
+        <div id="logo" class="shadow">ME</div>
       </header>
       <div id="msg-container">
         <div class="msg">Sending</div>
         <div id="title"></div>
-        <div class="msg">to</div>
-        <div id="email"></div>
+        <div class="msg">to <span id="email"></span></div>
+        <!--<div id="email"></div>-->
         <div id="status"></div>
       </div>
     </div>

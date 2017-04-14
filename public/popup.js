@@ -8,14 +8,14 @@ const EmailController = class EmailController {
   }
 
   getData() {
-    const getEmail = new Promise((resolve, reject) => {
+    const getEmail = new Promise((resolve) => {
       chrome.identity.getProfileUserInfo(user => {
         const email = user.email;
         this.data.email = email;
         resolve(email);
       });
     });
-    const getTab = new Promise((resolve, reject) => {
+    const getTab = new Promise((resolve) => {
       const config = {
         active: true,
         currentWindow: true

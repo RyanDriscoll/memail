@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const secret = require('./secret');
 
 app.use(bodyParser.json());
+
 app.use('/send', router);
 
 router.use('/', sendEmail);
