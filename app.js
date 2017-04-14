@@ -4,6 +4,7 @@ const router = express.Router();
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const secret = require('./secret');
+const PORT = process.env.PORT || 8080;
 
 app.use(bodyParser.json());
 
@@ -15,13 +16,13 @@ function sendEmail(req, res, next) {
   const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: secret.email,
-        pass: secret.password
+        user: process.env.EMAIL,
+        pass: process.env.PASS
     }
   });
 
   var mailOptions = {
-    from: `MeMail <${secret.email}>`,
+    from: `MeMail <${process.env.EMAIL}>`,
     to: req.body.email,
     subject: req.body.title,
     text: req.body.url
@@ -45,6 +46,6 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500).send(err);
 });
 
-app.listen(8080, function () {
-  console.log('Server is listening on port 8080');
+app.listen(PORT, function () {
+  console.log(`Server is listening on port ${PORT}`);
 });

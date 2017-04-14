@@ -12,6 +12,6 @@
     "activeTab",
     "identity",
     "identity.email",
-    "http://localhost:8080/send"
+    "https://guarded-shore-88310.herokuapp.com/send"
   ]
 }
