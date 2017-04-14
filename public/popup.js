@@ -38,7 +38,7 @@ const EmailController = class EmailController {
         done(responseObj);
       }
     };
-    xhr.open('POST', 'http://localhost:8080/send');
+    xhr.open('POST', 'https://guarded-shore-88310.herokuapp.com/send');
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xhr.send(JSON.stringify(this.data));
   }
