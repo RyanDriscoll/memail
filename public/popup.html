@@ -1,26 +1,28 @@
 <!doctype html>
 <html>
-  <head>
-    <title>MeMail</title>
-    <script src="popup.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-  </head>
 
-  <body>
-    <div id="container">
-      <header>
-        <div id="logo" class="shadow">ME</div>
-      </header>
-      <div id="msg-container">
-        <div class="msg">Sending</div>
-        <div id="title"></div>
-        <div class="msg">to <span id="email"></span></div>
-        <!--<div id="email"></div>-->
-        <div id="status"></div>
+<head>
+  <title>MEmail</title>
+  <script src="popup.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="container">
+    <header>
+      <div id="logo" class="shadow animate">ME</div>
+    </header>
+    <div id="msg-container" class="animate">
+      <div>Sending
+        <span class="dot" id="dot-1">.</span>
+        <span class="dot" id="dot-2">.</span>
+        <span class="dot" id="dot-3">.</span>
       </div>
+      <div id="title"></div>
+      <div>to <span id="email"></span></div>
     </div>
+  </div>
+</body>
 
-  </body>
 </html>
-

@@ -56,20 +56,20 @@ const EmailController = class EmailController {
   renderStatus(responseObj) {
     const
       msgContainer = document.getElementById('msg-container'),
-      success = 'MeMail sent!',
+      success = 'MEmail sent!',
       error = 'uh oh, something went wrong...',
       statusMessage = responseObj.status === 'success' ? success : error;
-    msgContainer.innerHTML = `<div class="msg">${statusMessage}</div>`;
-    setTimeout(window.close, 2000);
+    msgContainer.innerHTML = `<div id="status" class="msg animate">${statusMessage}</div>`;
+    setTimeout(window.close, 1000);
   }
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-  const MeMail = new EmailController();
+  const MEmail = new EmailController();
 
-  MeMail.getData()
-  .then(() => {
-    MeMail.render();
-    MeMail.sendEmail(MeMail.renderStatus);
-  });
+  MEmail.getData()
+    .then(() => {
+      MEmail.render();
+      MEmail.sendEmail(MEmail.renderStatus);
+    });
 });
