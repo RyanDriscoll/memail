@@ -2,15 +2,15 @@
   "manifest_version": 2,
 
   "name": "MEmail",
-  "version": "1.1",
+  "version": "1.2",
   "description": "Send email to yourself",
   "icons": {
-    "16": "logo.png",
-    "48": "logo.png",
-    "128": "logo.png"
+    "16": "memail_logo_5.png",
+    "48": "memail_logo_5.png",
+    "128": "memail_logo_5.png"
     },
   "browser_action": {
-    "default_icon": "logo.png",
+    "default_icon": "memail_logo_5.png",
     "default_popup": "popup.html"
   },
   "permissions": [
