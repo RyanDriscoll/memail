@@ -3,7 +3,7 @@ body {
   font-size: 16px;
   background-color: #ffffff;
   margin: 0;
-  font-family: 'Amatic SC', 'helvetica neue';
+  font-family: 'Josefin Slab', serif;
   position: relative;
 }
 
@@ -20,13 +20,14 @@ body {
 }
 
 #logo {
+  font-family: 'Amatic SC', 'helvetica neue';
   font-weight: 900;
-  font-size: 6em;
+  font-size: 4em;
   color: #ffffff;
   background: #e52929;
   border-radius: 50%;
   text-align: center;
-  width: 110px;
+  width: 70px;
   margin-top: 15px;
 }
 
