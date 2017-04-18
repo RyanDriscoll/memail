@@ -1,5 +1,6 @@
 const EmailController = class EmailController {
   constructor() {
+    this.settings = false;
     this.data = {
       url: '',
       title: '',
@@ -38,40 +39,15 @@ const EmailController = class EmailController {
     return tabPromise;
   }
 
-  getData(emailFromStore) {
-    // const getEmail = emailFromStore ? emailFromStore :
-    // new Promise((resolve) => {
-    //   chrome.identity.getProfileUserInfo(user => {
-    //     const email = user.email;
-    //     this.data.email = email;
-    //     resolve(email);
-    //   });
-    // });
-    // const getTab = new Promise((resolve) => {
-    //   const config = {
-    //     active: true,
-    //     currentWindow: true
-    //   };
-    //   chrome.tabs.query(config, tabs => {
-    //     const tab = tabs[0];
-    //     this.data.url = tab.url;
-    //     this.data.title = tab.title;
-    //     resolve(tab);
-    //   });
-    // });
-    const email = emailFromStore ? emailFromStore : this.getEmail();
-    return Promise.all([email, this.getTab()]);
-  }
-
   sendEmail(done) {
     const xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         const responseObj = JSON.parse(xhr.responseText);
-        done(responseObj);
+        setTimeout(() => done(responseObj), 1000);
       }
     };
-    xhr.open('POST', 'https://guarded-shore-88310.herokuapp.com/snd');
+    xhr.open('POST', 'https://guarded-shore-88310.herokuapp.com/send');
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xhr.send(JSON.stringify(this.data));
   }
@@ -86,7 +62,6 @@ const EmailController = class EmailController {
       input = document.createElement('input'),
       button = document.createElement('button'),
       buttonText = document.createTextNode('UPDATE');
-      // store = localStorage;
 
     label.appendChild(labelText);
     button.appendChild(buttonText);
@@ -98,12 +73,17 @@ const EmailController = class EmailController {
 
     const self = this;
     const renderSending = this.renderSending.bind(this);
+    const sendEmail = this.sendEmail.bind(this);
+    const renderStatus = this.renderStatus.bind(this);
     button.addEventListener('click', function(event) {
       event.preventDefault();
       const store = localStorage;
       store.setItem('email', input.value);
       self.setEmail = input.value;
+      self.settings = false;
+      console.log('before renderSending in renderSettings')
       renderSending(input.value);
+      sendEmail(renderStatus);
     });
 
     form.appendChild(label);
@@ -116,6 +96,8 @@ const EmailController = class EmailController {
   }
 
   renderSending(email) {
+    console.log('this', this)
+
     const
       msgContainer = document.getElementById('msg-container'),
       fragment = document.createDocumentFragment(),
@@ -152,13 +134,16 @@ const EmailController = class EmailController {
   }
 
   renderStatus(responseObj) {
+    console.log('this', this)
+    if (this.settings) return;
     const
       msgContainer = document.getElementById('msg-container'),
-      status = document.createElement('div').className = 'status',
+      status = document.createElement('div'),
       success = 'MEmail sent!',
       error = 'uh oh, something went wrong...',
       statusMessage = responseObj.status === 'success' ? success : error,
       statusText = document.createTextNode(statusMessage);
+    status.className = 'status animate';
     status.appendChild(statusText);
     msgContainer.innerHTML = null;
     msgContainer.appendChild(status);
@@ -168,16 +153,31 @@ const EmailController = class EmailController {
 
 document.addEventListener('DOMContentLoaded', function () {
   const
+    cog = document.getElementById('cog'),
     store = localStorage,
-    email = store.getItem('email'),
     MEmail = new EmailController();
 
-    store.clear();
+  cog.addEventListener('click', function(event) {
+    event.preventDefault();
+    MEmail.settings = true;
+    const storedEmail = store.getItem('email');
+    if (storedEmail) {
+      MEmail.renderSettings(storedEmail);
+    } else {
+      MEmail.getEmail().then(fetchedEmail => {
+        MEmail.renderSettings(fetchedEmail);
+      });
+    }
+  });
 
   MEmail.getTab().then(() => {
-    if (email) {
-      MEmail.renderSending(email);
-      MEmail.sendEmail(MEmail.renderStatus);
+    const storedEmail = store.getItem('email');
+    if (storedEmail) {
+      MEmail.setEmail = storedEmail;
+      console.log('before renderSending in DOMContentLoaded')
+      MEmail.renderSending(storedEmail);
+      const renderStatus = MEmail.renderStatus.bind(MEmail);
+      MEmail.sendEmail(renderStatus);
     } else {
       MEmail.getEmail().then(fetchedEmail => {
         MEmail.renderSettings(fetchedEmail);
