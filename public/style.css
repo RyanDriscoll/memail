@@ -54,7 +54,7 @@ body {
   animation: fadeInOpacity 0.5s 1 ease-out, move 0.3s 1 ease-out;
 }
 
-#status {
+.status {
   font-size: 1.5em;
 }
 
@@ -68,11 +68,11 @@ body {
   animation-timing-function: ease-in;
 }
 
-#dot-2 {
+.dot-2 {
   animation-delay: 0.15s;
 }
 
-#dot-3 {
+.dot-3 {
   animation-delay: 0.3s;
 }
 
