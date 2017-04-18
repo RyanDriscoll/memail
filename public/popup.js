@@ -38,12 +38,16 @@ const EmailController = class EmailController {
         done(responseObj);
       }
     };
-    xhr.open('POST', 'https://guarded-shore-88310.herokuapp.com/send');
+    xhr.open('POST', 'https://guarded-shore-88310.herokuapp.com/snd');
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xhr.send(JSON.stringify(this.data));
   }
 
-  render() {
+  renderSettings() {
+
+  }
+
+  renderSending() {
     const
       title = document.getElementById('title'),
       titleText = document.createTextNode(this.data.title),
@@ -65,11 +69,18 @@ const EmailController = class EmailController {
 };
 
 document.addEventListener('DOMContentLoaded', function () {
+  const store = localStorage;
+
+  store.setItem('test', 'did this work?');
+
+  const test = store.getItem('email');
+  console.log('!!!!!!!!!!!!!!!!!!!!!!!', test);
+
   const MEmail = new EmailController();
 
   MEmail.getData()
     .then(() => {
-      MEmail.render();
+      MEmail.renderSending();
       MEmail.sendEmail(MEmail.renderStatus);
     });
 });
