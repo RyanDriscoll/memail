@@ -11,13 +11,8 @@ body {
 #container {
   min-height: 300px;
   min-width: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
   padding: 15px;
-  transition: min-height 2s ease;
-  position: relative;
+  transition: all 2s ease;
 }
 
 #logo {
@@ -69,7 +64,9 @@ button {
   outline: none;
 }
 
-#msg-container {
+#settings,
+#sending,
+#status {
   display: flex;
   justify-content: space-around;
   flex-direction: column;
@@ -88,7 +85,9 @@ button {
 .animate {
   opacity: 1;
   position: relative;
-  animation: fadeInOpacity 0.5s 1 ease-out, move 0.3s 1 ease-out;
+  animation:
+    fadeInOpacity 0.5s 1 ease-out,
+    move 0.3s 1 ease-out;
 }
 
 .status {
