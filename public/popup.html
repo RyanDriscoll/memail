@@ -3,7 +3,8 @@
 
 <head>
   <title>MEmail</title>
-  <script src="popup.js"></script>
+  <script src="popup.js" async></script>
+  <script src="jquery.slim.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Josefin+Slab:600" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -15,6 +16,11 @@
       <img id="cog" src="cog.png"/>
     </header>
     <div id="msg-container" class="animate">
+      <div id="settings">
+        <label>Your email is saved as:</label>
+        <input tabindex="-1"/>
+        <button class="shadow">UPDATE</button>
+      </div>
 
     </div>
   </div>
