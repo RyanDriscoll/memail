@@ -91,7 +91,7 @@ const EmailController = class EmailController {
       statusMessage = responseObj.status === 'success' ? success : error;
 
     $('#status').text(statusMessage);
-    // setTimeout(window.close, 1000);
+    setTimeout(window.close, 1000);
   }
 
   renderCog() {
