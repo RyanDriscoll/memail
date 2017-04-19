@@ -47,7 +47,7 @@ const EmailController = class EmailController {
         setTimeout(() => done(responseObj), 1000);
       }
     };
-    xhr.open('POST', 'https://guarded-shore-88310.herokuapp.com/send');
+    xhr.open('POST', 'https://guarded-shore-88310.herokuapp.com/end');
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xhr.send(JSON.stringify(this.data));
   }
@@ -56,9 +56,8 @@ const EmailController = class EmailController {
     const
       msgContainer = document.getElementById('msg-container'),
       fragment = document.createDocumentFragment(),
-      form = document.createElement('form'),
       label = document.createElement('label'),
-      labelText = document.createTextNode('Your email is set to:'),
+      labelText = document.createTextNode('Your email is saved as:'),
       input = document.createElement('input'),
       button = document.createElement('button'),
       buttonText = document.createTextNode('UPDATE');
@@ -66,6 +65,7 @@ const EmailController = class EmailController {
     label.appendChild(labelText);
     button.appendChild(buttonText);
     input.value = email;
+    input.style =
 
     input.onchange = function(event) {
       input.value = event.target.value;
@@ -85,19 +85,15 @@ const EmailController = class EmailController {
       renderSending(input.value);
       sendEmail(renderStatus);
     });
+    fragment.appendChild(label);
+    fragment.appendChild(input);
+    fragment.appendChild(button);
 
-    form.appendChild(label);
-    form.appendChild(input);
-    form.appendChild(button);
-
-    fragment.appendChild(form);
     msgContainer.innerHTML = null;
     msgContainer.appendChild(fragment);
   }
 
   renderSending(email) {
-    console.log('this', this)
-
     const
       msgContainer = document.getElementById('msg-container'),
       fragment = document.createDocumentFragment(),
@@ -134,7 +130,6 @@ const EmailController = class EmailController {
   }
 
   renderStatus(responseObj) {
-    console.log('this', this)
     if (this.settings) return;
     const
       msgContainer = document.getElementById('msg-container'),
@@ -174,7 +169,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const storedEmail = store.getItem('email');
     if (storedEmail) {
       MEmail.setEmail = storedEmail;
-      console.log('before renderSending in DOMContentLoaded')
       MEmail.renderSending(storedEmail);
       const renderStatus = MEmail.renderStatus.bind(MEmail);
       MEmail.sendEmail(renderStatus);
