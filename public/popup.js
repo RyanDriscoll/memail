@@ -47,7 +47,7 @@ const EmailController = class EmailController {
         setTimeout(() => done(responseObj), 1000);
       }
     };
-    xhr.open('POST', 'https://guarded-shore-88310.herokuapp.com/end');
+    xhr.open('POST', 'https://guarded-shore-88310.herokuapp.com/send');
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xhr.send(JSON.stringify(this.data));
   }
@@ -85,6 +85,7 @@ const EmailController = class EmailController {
       renderSending(input.value);
       sendEmail(renderStatus);
     });
+    [label, input, button].forEach(el => {el.className = 'animate';});
     fragment.appendChild(label);
     fragment.appendChild(input);
     fragment.appendChild(button);
