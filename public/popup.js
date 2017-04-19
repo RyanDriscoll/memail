@@ -44,7 +44,7 @@ const EmailController = class EmailController {
     xhr.onreadystatechange = function () {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         const responseObj = JSON.parse(xhr.responseText);
-        setTimeout(() => done(responseObj), 1000);
+        done(responseObj);
       }
     };
     xhr.open('POST', 'https://guarded-shore-88310.herokuapp.com/send');
@@ -65,8 +65,7 @@ const EmailController = class EmailController {
     label.appendChild(labelText);
     button.appendChild(buttonText);
     input.value = email;
-    input.style =
-
+    input.setAttribute('tabindex', '-1');
     input.onchange = function(event) {
       input.value = event.target.value;
     };
@@ -81,11 +80,15 @@ const EmailController = class EmailController {
       store.setItem('email', input.value);
       self.setEmail = input.value;
       self.settings = false;
-      console.log('before renderSending in renderSettings')
       renderSending(input.value);
       sendEmail(renderStatus);
     });
-    [label, input, button].forEach(el => {el.className = 'animate';});
+    [label, input, button].forEach(el => {
+      el.className = 'animate';
+      if (el === button) {
+        el.className += ' shadow';
+      }
+    });
     fragment.appendChild(label);
     fragment.appendChild(input);
     fragment.appendChild(button);
@@ -172,7 +175,11 @@ document.addEventListener('DOMContentLoaded', function () {
       MEmail.setEmail = storedEmail;
       MEmail.renderSending(storedEmail);
       const renderStatus = MEmail.renderStatus.bind(MEmail);
-      MEmail.sendEmail(renderStatus);
+      setTimeout(() => {
+        if (!MEmail.settings) {
+          MEmail.sendEmail(renderStatus)
+        }
+      }, 1000);
     } else {
       MEmail.getEmail().then(fetchedEmail => {
         MEmail.renderSettings(fetchedEmail);
