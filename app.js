@@ -20,6 +20,7 @@ app.use('/send', router);
 router.use('/', sendEmail);
 
 function sendEmail(req, res, next) {
+  console.log('REFRESH TOKEN>>>>>>><<<<<< ', REFRESH_TOKEN);
   const oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
   oauth2Client.setCredentials({
     REFRESH_TOKEN,
