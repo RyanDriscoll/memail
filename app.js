@@ -19,7 +19,7 @@ app.use('/send', router);
 
 router.use('/', sendEmail);
 
-async function sendEmail(req, res, next) {
+function sendEmail(req, res, next) {
   const oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
   oauth2Client.setCredentials({
     REFRESH_TOKEN,
