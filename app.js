@@ -24,7 +24,7 @@ function sendEmail(req, res, next) {
   oauth2Client.setCredentials({
     refresh_token: REFRESH_TOKEN,
   });
-  oauth2Client
+  return oauth2Client
     .getAccessToken()
     .then(response => {
       const accessToken = response.token;
@@ -47,10 +47,10 @@ function sendEmail(req, res, next) {
         text: req.body.url,
       };
 
-      transporter.sendMail(mailOptions, (err, res) => {
-        if (err) {
-          console.error(err, err.stack);
-          res.status(err.status || 500).send(err);
+      transporter.sendMail(mailOptions, (error, response) => {
+        if (error) {
+          console.error(error, error.stack);
+          res.status(error.status || 500).send(error);
         }
         transporter.close();
         res.sendStatus(200);
