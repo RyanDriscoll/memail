@@ -35,6 +35,7 @@ function sendEmail(req, res, next) {
           user: EMAIL,
           clientId: CLIENT_ID,
           clientSecret: CLIENT_SECRET,
+          refreshToken: REFRESH_TOKEN,
           accessToken: accessToken,
         },
       });
