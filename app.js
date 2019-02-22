@@ -24,7 +24,7 @@ function sendEmail(req, res, next) {
   oauth2Client.setCredentials({
     refresh_token: REFRESH_TOKEN,
   });
-  return oauth2Client
+  oauth2Client
     .getAccessToken()
     .then(response => {
       const accessToken = response.token;
