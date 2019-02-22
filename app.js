@@ -50,10 +50,10 @@ function sendEmail(req, res, next) {
       transporter.sendMail(mailOptions, (error, response) => {
         if (error) {
           console.error(error, error.stack);
-          res.status(error.status || 500).send(error);
+          res.json({ status: 'error' });
         }
         transporter.close();
-        res.sendStatus(200);
+        res.json({ status: 'success' });
       });
     })
     .catch(err => {
