@@ -58,13 +58,13 @@ function sendEmail(req, res, next) {
     })
     .catch(err => {
       console.error(err, err.stack);
-      res.status(err.status || 500).send(err);
+      res.json({ status: 'error' });
     });
 }
 
 app.use(function(err, req, res, next) {
   console.error(err, err.stack);
-  res.status(err.status || 500).send(err);
+  res.json({ status: 'error' });
 });
 
 const PORT = process.env.PORT || 8080;
